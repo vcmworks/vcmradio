@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tarang Radio · తెలుగు రేడియో</title>
+<meta name="description" content="Listen to live Telugu radio stations in your browser.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&family=Noto+Sans+Telugu:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="./" aria-label="Tarang Radio home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Tarang</span>
+      <span class="brand-te" lang="te">తెలుగు రేడియో</span>
+    </a>
+    <div class="top-actions">
+      <label class="sr" for="lang">Language</label>
+      <select id="lang" class="sel">
+        <option value="telugu">Telugu</option>
+        <option value="hindi">Hindi</option>
+        <option value="tamil">Tamil</option>
+        <option value="kannada">Kannada</option>
+        <option value="malayalam">Malayalam</option>
+      </select>
+      <button class="btn ghost" id="themeBtn" type="button" aria-label="Toggle theme">Theme</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="dial" id="dial" aria-hidden="true"><span class="needle" id="needle"></span></div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <section class="controls" aria-label="Find a station">
+    <div class="search">
+      <label class="sr" for="q">Search stations</label>
+      <input id="q" type="search" placeholder="Search stations, genres, cities  ( / )" autocomplete="off">
+    </div>
+    <div class="row">
+      <label class="sr" for="stateSel">City or state</label>
+      <select id="stateSel" class="sel"><option value="">All locations</option></select>
+      <label class="sr" for="sortSel">Sort</label>
+      <select id="sortSel" class="sel">
+        <option value="listeners">Most listened</option>
+        <option value="votes">Most voted</option>
+        <option value="name">Name A–Z</option>
+        <option value="bitrate">Highest bitrate</option>
+      </select>
+      <button class="btn" id="addBtn" type="button">Add stream</button>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filters"></div>
+  </section>
+
+  <p class="status" id="count" role="status" aria-live="polite"></p>
+  <div class="grid" id="grid" aria-busy="true"></div>
+  <div class="empty" id="empty" hidden></div>
+
+  <footer class="foot">
+    <p>Station list from the open <a href="https://www.radio-browser.info/" target="_blank" rel="noopener noreferrer">Radio Browser</a> community directory. Streams belong to their broadcasters. If a station will not play, it may be offline or blocked by your browser; try another.</p>
+  </footer>
+</main>
+
+<div class="player" id="player" role="region" aria-label="Player">
+  <div class="wrap player-in">
+    <div class="np">
+      <div class="av sm" id="npAv" aria-hidden="true">♪</div>
+      <div class="np-text">
+        <div class="np-name" id="npName">Pick a station</div>
+        <div class="np-sub" id="npSub">Nothing playing</div>
+      </div>
+    </div>
+    <div class="ctrl">
+      <button class="icon" id="prevBtn" type="button" aria-label="Previous station">⏮</button>
+      <button class="play" id="playBtn" type="button" aria-label="Play">▶</button>
+      <button class="icon" id="nextBtn" type="button" aria-label="Next station">⏭</button>
+    </div>
+    <div class="extra">
+      <button class="icon" id="muteBtn" type="button" aria-label="Mute">🔊</button>
+      <label class="sr" for="vol">Volume</label>
+      <input id="vol" type="range" min="0" max="1" step="0.01" value="0.8">
+      <label class="sr" for="sleep">Sleep timer</label>
+      <select id="sleep" class="sel sm">
+        <option value="0">Sleep: off</option>
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="60">60 min</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<dialog id="addDlg">
+  <form method="dialog" id="addForm" class="dlg">
+    <h2>Add a stream</h2>
+    <p class="muted">Paste a direct stream address (MP3, AAC, Ogg, or HLS .m3u8). It is saved in this browser only.</p>
+    <label for="addName">Station name</label>
+    <input id="addName" required maxlength="80">
+    <label for="addUrl">Stream URL</label>
+    <input id="addUrl" type="url" required placeholder="https://example.com/live.mp3">
+    <p class="err" id="addErr" role="alert"></p>
+    <div class="dlg-actions">
+      <button class="btn ghost" type="button" id="addCancel">Cancel</button>
+      <button class="btn primary" type="submit">Save station</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>
